@@ -5,4 +5,4 @@ set(CMAKE_CXX_STANDARD 17)
 
 include_directories(include)
 
-add_executable(Net_LibEvent main.cpp)
+add_executable(Net_LibEvent Win32.cpp)

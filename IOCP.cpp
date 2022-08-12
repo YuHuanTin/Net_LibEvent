@@ -97,8 +97,8 @@ public:
     }
 
 };
-void read_cb(evutil_socket_t socket, short i, void *userArgs){
-    if (i & EV_TIMEOUT){
+void data_cb(evutil_socket_t socket, short ev_, void *userArgs){
+    if (ev_ & EV_TIMEOUT){
         printf("time out\n");
         event_free((event *)userArgs);
         evutil_closesocket(socket);
