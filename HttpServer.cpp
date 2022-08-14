@@ -61,6 +61,7 @@ void http_cb(evhttp_request *request,void *userArgs){
 
     //响应正文
     evbuffer *outputBuffer = evhttp_request_get_output_buffer(request);
+    /*
     FILE *fp;
     fopen_s(&fp,"D:\\我的文件\\IDM\\下载文件-IDM\\helloworld.txt","rb");
     size_t bytesRead;
@@ -68,6 +69,9 @@ void http_cb(evhttp_request *request,void *userArgs){
         evbuffer_add(outputBuffer,buf,4096);
     }
     fclose(fp);
+     */
+    char str[] ="Hello World!";
+    evbuffer_add(outputBuffer,str, sizeof(str));
     evhttp_send_reply(request,HTTP_OK,"",outputBuffer);
 }
 

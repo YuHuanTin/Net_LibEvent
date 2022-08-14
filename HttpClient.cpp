@@ -39,7 +39,7 @@ int main(){
     event_base *eventBase = event_base_new();
 
     //生成请求信息-GET
-    std::string url = "http://127.0.0.1:233/1.html";
+    std::string url = "https://www.bilibili.com/";
     evhttp_uri *evhttpUri = evhttp_uri_parse(url.c_str());
     //获取协议,有可能是http/https/null
     const char *scheme = evhttp_uri_get_scheme(evhttpUri);
@@ -81,10 +81,10 @@ int main(){
     //发送post数据
     evbuffer *evbuffer = evhttp_request_get_output_buffer(evhttpRequest);
     //evbuffer_add(evbuffer,"nihao",5);
-    evbuffer_add_printf(evbuffer,"name=%d,psd=%s",32,"nihao");
+    //evbuffer_add_printf(evbuffer,"name=%d,psd=%s",32,"nihao");
 
     //发起请求,path可以为path+query/path
-    evhttp_make_request(evhttpConnection,evhttpRequest,EVHTTP_REQ_POST,path);
+    evhttp_make_request(evhttpConnection,evhttpRequest,EVHTTP_REQ_GET,path);
 
 
     event_base_dispatch(eventBase);

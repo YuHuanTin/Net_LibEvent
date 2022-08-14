@@ -5,4 +5,4 @@ set(CMAKE_CXX_STANDARD 17)
 
 include_directories(include)
 
-add_executable(Net_LibEvent HttpClient.cpp)
+add_executable(Net_LibEvent Test/SimpleHttpServer.cpp Test/SimpleHttpServer.h)
