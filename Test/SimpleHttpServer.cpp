@@ -9,7 +9,7 @@ void fn_OutputErr(const std::string &msg){
 void fn_OutputLogs(const std::string &msg){
     printf("[Log]%s\n",msg.c_str());
 }
-bool fn_get_prefix(std::string &str){
+bool fn_get_suffix(std::string &str){
     size_t pos = str.rfind('.');
     if (pos == std::string::npos){
         return false;
@@ -34,7 +34,7 @@ void server_cb(evhttp_request *request,void *){
             }
         }
         //获取后缀判断Context-Type并设置
-        if (fn_get_prefix(suffix)){
+        if (fn_get_suffix(suffix)){
             evkeyvalq *pOutEvkeyval = evhttp_request_get_output_headers(request);
             if (suffix == "jpg" || suffix == "jpeg"){
                 evhttp_add_header(pOutEvkeyval, "Content-Type", "image/jpeg");
