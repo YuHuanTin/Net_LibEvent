@@ -41,24 +41,30 @@ void http_cb(evhttp_request *request,void *userArgs){
         }
     }
 
-
     //响应部分
     evkeyvalq *outHeader = evhttp_request_get_output_headers(request);
     std::string path = url;
+
     size_t pos = path.rfind('.');
-    std::string prefix = path.substr(pos +1,path.length() - (pos + 1));
-    if (prefix == "jpg" || prefix == "gif" || prefix == "png"){
-        std::string tmp = "image/" + prefix;
-        //添加协议头
-        evhttp_add_header(outHeader,"Content-Type",tmp.c_str());
+    if (pos != std::string::npos){
+        std::string prefix = path.substr(pos +1,path.length() - (pos + 1));
+        if (prefix == "jpg" || prefix == "gif" || prefix == "png"){
+            std::string tmp = "image/" + prefix;
+            //添加协议头
+            evhttp_add_header(outHeader,"Content-Type",tmp.c_str());
+        } else if (prefix == "zip"){
+            evhttp_add_header(outHeader,"Content-Type","application/zip");
+        } else if (prefix == "html"){
+            evhttp_add_header(outHeader,"Content-Type","text/html;charset=UTF8");
+        }
     }
 
+    //响应正文
     evbuffer *outputBuffer = evhttp_request_get_output_buffer(request);
-
     FILE *fp;
-    fopen_s(&fp,"D:\\404.jpg","rb");
+    fopen_s(&fp,"D:\\我的文件\\IDM\\下载文件-IDM\\helloworld.txt","rb");
     size_t bytesRead;
-    while ((bytesRead = fread(buf, sizeof(buf),1,fp)) > 0){
+    while ((bytesRead = fread(buf, 1,sizeof(buf),fp)) > 0){
         evbuffer_add(outputBuffer,buf,4096);
     }
     fclose(fp);
